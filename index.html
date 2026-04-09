@@ -7,43 +7,40 @@
   <style>
     * {
       box-sizing: border-box;
-      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
 
     :root {
-      --bg: #07111f;
-      --bg-2: #0f172a;
-      --card: rgba(255,255,255,0.07);
-      --card-2: rgba(255,255,255,0.05);
+      --bg: #081120;
+      --bg2: #0f172a;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.08);
       --text: #f8fafc;
       --muted: #cbd5e1;
-      --line: rgba(255,255,255,0.09);
       --green: #22c55e;
       --green-dark: #16a34a;
       --accent: #38bdf8;
+      --danger: #ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
       --radius: 22px;
       --max: 1180px;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 28%),
-        radial-gradient(circle at top right, rgba(34,197,94,0.14), transparent 24%),
-        linear-gradient(135deg, #06101d 0%, #0b1325 40%, #111c33 100%);
       min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 25%),
+        radial-gradient(circle at top right, rgba(34,197,94,0.12), transparent 25%),
+        linear-gradient(135deg, #07101e 0%, #0b1322 45%, #101a31 100%);
     }
 
     a {
-      color: inherit;
       text-decoration: none;
-    }
-
-    .site-shell {
-      min-height: 100vh;
+      color: inherit;
     }
 
     .container {
@@ -55,17 +52,17 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      background: rgba(8,17,32,0.82);
       backdrop-filter: blur(12px);
-      background: rgba(7, 17, 31, 0.75);
       border-bottom: 1px solid var(--line);
     }
 
     .nav-inner {
-      height: 74px;
+      height: 76px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      align-items: center;
+      gap: 16px;
     }
 
     .brand {
@@ -73,13 +70,12 @@
       align-items: center;
       gap: 12px;
       font-weight: 800;
-      letter-spacing: 0.2px;
     }
 
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--green), #86efac);
@@ -89,37 +85,92 @@
 
     .nav-links {
       display: flex;
-      gap: 18px;
+      gap: 10px;
       flex-wrap: wrap;
       align-items: center;
     }
 
-    .nav-links a {
+    .nav-links button,
+    .nav-action,
+    .btn,
+    .small-btn,
+    .ghost-btn,
+    .remove-btn {
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      transition: 0.2s ease;
+      font-weight: 800;
+    }
+
+    .nav-links button {
+      background: transparent;
       color: var(--muted);
+      padding: 10px 14px;
       font-size: 14px;
     }
 
-    .nav-links a:hover {
+    .nav-links button:hover,
+    .nav-links button.active-link {
+      background: rgba(255,255,255,0.08);
       color: white;
     }
 
-    .nav-cta {
+    .nav-action {
       background: var(--green);
       color: #052e16;
-      border: none;
       padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
+      font-size: 14px;
     }
 
-    .nav-cta:hover {
+    .nav-action:hover,
+    .btn:hover,
+    .small-btn:hover {
       background: var(--green-dark);
       color: white;
     }
 
-    .hero {
-      padding: 56px 0 22px;
+    .page {
+      display: none;
+      min-height: calc(100vh - 76px);
+      padding: 34px 0 54px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+    }
+
+    .ticker {
+      overflow: hidden;
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      margin-bottom: 18px;
+      padding: 12px 0;
+    }
+
+    .ticker span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 18s linear infinite;
+      color: #86efac;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     .hero-grid {
@@ -128,18 +179,17 @@
       gap: 22px;
       align-items: stretch;
     }
-
-    .glass-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+    .hero-card,
+    .side-card,
+    .feature-card,
+    .dashboard-card,
+    .motivation-card,
+    .signup-card {
+      padding: 28px;
     }
 
     .hero-card {
-      padding: 34px;
-      min-height: 520px;
+      min-height: 560px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -147,74 +197,57 @@
       overflow: hidden;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .badge {
+      display: inline-block;
       width: fit-content;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(34,197,94,0.12);
+      background: rgba(34,197,94,0.13);
       color: #86efac;
-      font-size: 13px;
+      font-size: 12px;
       margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
     }
 
-    .hero h1 {
-      font-size: 60px;
+    h1 {
+      font-size: 62px;
       line-height: 0.98;
-      margin: 0 0 16px;
-      letter-spacing: -1.4px;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
     }
 
-    .hero p.main-copy {
+    .hero-copy {
       color: var(--muted);
       font-size: 18px;
-      line-height: 1.65;
+      line-height: 1.7;
       max-width: 650px;
-      margin: 0 0 26px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
       margin-bottom: 24px;
     }
 
-    .btn-primary,
-    .btn-secondary,
-    .btn-small,
-    .delete-btn {
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      font-weight: 800;
-      transition: 0.2s ease;
-      font-family: inherit;
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
     }
 
-    .btn-primary {
+    .btn {
       background: var(--green);
       color: #052e16;
       padding: 15px 22px;
       font-size: 15px;
     }
 
-    .btn-primary:hover {
-      background: var(--green-dark);
-      color: white;
-    }
-
-    .btn-secondary {
+    .ghost-btn {
       background: rgba(255,255,255,0.06);
       color: white;
-      border: 1px solid rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.12);
       padding: 15px 20px;
       font-size: 15px;
     }
 
-    .btn-secondary:hover {
+    .ghost-btn:hover {
       background: rgba(255,255,255,0.12);
     }
 
@@ -222,25 +255,47 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-      margin-top: 10px;
     }
 
-    .stat-box {
+    .stat {
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
     }
 
-    .stat-box h3 {
-      margin: 0 0 6px;
+    .stat h3 {
       font-size: 28px;
+      margin-bottom: 6px;
     }
 
-    .stat-box p {
-      margin: 0;
+    .stat p {
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .hero-visual {
+      margin-top: 28px;
+      height: 170px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 20% 35%, rgba(34,197,94,0.35), transparent 20%),
+        radial-gradient(circle at 75% 25%, rgba(56,189,248,0.28), transparent 22%),
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "FOCUS • DISCIPLINE • REWARD";
+      position: absolute;
+      bottom: 18px;
+      left: 20px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .side-stack {
@@ -248,13 +303,7 @@
       gap: 22px;
     }
 
-    .quote-card,
-    .clock-card,
-    .motivation-card {
-      padding: 24px;
-    }
-
-    .card-label {
+    .label {
       color: #86efac;
       font-size: 12px;
       text-transform: uppercase;
@@ -262,41 +311,40 @@
       margin-bottom: 12px;
     }
 
-    #quoteText {
-      font-size: 26px;
-      line-height: 1.4;
-      margin: 0 0 10px;
-      font-weight: 700;
+    #homeQuote {
+      font-size: 29px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      font-weight: 800;
     }
 
-    #quoteAuthor {
-      margin: 0;
+    #homeQuoteAuthor,
+    .muted {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.6;
     }
 
     .time {
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 900;
-      margin: 0 0 8px;
+      margin-bottom: 8px;
     }
 
     .date {
-      font-size: 15px;
       color: var(--muted);
-      margin: 0 0 18px;
+      margin-bottom: 14px;
     }
 
-    .mini-progress {
-      height: 12px;
+    .progress-bar {
       width: 100%;
-      background: rgba(255,255,255,0.08);
+      height: 12px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.08);
       overflow: hidden;
-      margin-top: 12px;
     }
 
-    .mini-progress-fill {
+    .progress-fill {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, var(--green), #86efac);
@@ -304,65 +352,45 @@
       transition: width 0.25s ease;
     }
 
-    .motivation-card p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin: 0 0 16px;
-    }
-
-    .sections {
-      padding: 22px 0 70px;
-    }
-
-    .section-title-wrap {
-      margin-bottom: 20px;
+    .section-head {
+      margin-bottom: 22px;
     }
 
     .eyebrow {
       color: #86efac;
-      text-transform: uppercase;
       font-size: 12px;
+      text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 10px;
     }
 
-    .section-title {
-      font-size: 36px;
-      margin: 0 0 10px;
+    .section-head h2 {
+      font-size: 40px;
+      margin-bottom: 10px;
     }
 
-    .section-sub {
+    .section-head p {
       color: var(--muted);
-      margin: 0;
       font-size: 16px;
+      max-width: 740px;
+      line-height: 1.7;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin-bottom: 28px;
     }
 
-    .feature {
-      padding: 20px;
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
     }
 
-    .feature h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    .feature p {
+    .feature-card p {
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .dashboard {
-      margin-top: 14px;
-      padding: 26px;
+      line-height: 1.7;
     }
 
     .dashboard-top {
@@ -374,15 +402,14 @@
       margin-bottom: 22px;
     }
 
-    .dashboard-top h3 {
-      margin: 0 0 6px;
-      font-size: 30px;
+    .dashboard-top h2 {
+      font-size: 36px;
+      margin-bottom: 8px;
     }
 
     .dashboard-top p {
-      margin: 0;
       color: var(--muted);
-      font-size: 15px;
+      line-height: 1.6;
     }
 
     .top-actions {
@@ -391,40 +418,36 @@
       flex-wrap: wrap;
     }
 
-    .btn-small {
+    .small-btn {
       background: var(--green);
       color: #052e16;
       padding: 12px 16px;
       font-size: 14px;
     }
 
-    .btn-small:hover {
-      background: var(--green-dark);
-      color: white;
-    }
-
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
+      margin-bottom: 20px;
     }
 
     .panel {
-      background: var(--card-2);
+      background: var(--panel2);
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 22px;
     }
 
-    .panel h4 {
-      margin: 0 0 6px;
-      font-size: 23px;
+    .panel h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
     }
 
-    .panel-sub {
+    .panel p {
       color: var(--muted);
       font-size: 14px;
-      margin: 0 0 16px;
+      margin-bottom: 16px;
     }
 
     .input-row {
@@ -435,7 +458,7 @@
 
     input {
       width: 100%;
-      padding: 14px 14px;
+      padding: 14px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.08);
@@ -450,8 +473,6 @@
 
     ul {
       list-style: none;
-      padding: 0;
-      margin: 0;
     }
 
     li {
@@ -459,74 +480,170 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      padding: 14px 14px;
-      margin-bottom: 10px;
-      border-radius: 14px;
       background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
       font-size: 15px;
-      border: 1px solid rgba(255,255,255,0.07);
     }
 
-    .empty-state {
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .task-left input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .empty {
       color: #94a3b8;
       font-size: 14px;
-      padding: 12px 0 4px;
+      padding-top: 8px;
     }
 
-    .delete-btn {
+    .remove-btn {
       background: transparent;
       color: #fca5a5;
       font-size: 13px;
       padding: 0;
     }
 
-    .delete-btn:hover {
-      color: #ef4444;
+    .remove-btn:hover {
+      color: var(--danger);
     }
 
-    .insight-grid {
+    .insights {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 18px;
     }
 
-    .insight-box {
+    .insight {
+      padding: 18px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 18px;
     }
 
-    .insight-box h5 {
-      margin: 0 0 8px;
-      font-size: 15px;
+    .insight h4 {
+      margin-bottom: 8px;
       color: #86efac;
+      font-size: 15px;
     }
 
-    .insight-box p {
-      margin: 0;
+    .insight p {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .motivation-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+    }
+
+    .quote-main h2 {
+      font-size: 36px;
+      margin-bottom: 14px;
+    }
+
+    .quote-main p.big {
+      font-size: 24px;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .quote-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .quote-item {
+      padding: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .quote-item p {
       line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .quote-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .signup-wrap {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+    }
+
+    .signup-side h2,
+    .signup-card h2 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .signup-side p,
+    .signup-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .signup-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .signup-list div {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      color: #dbeafe;
+      border: 1px solid var(--line);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
     }
 
     .footer {
-      padding: 28px 0 36px;
-      color: #94a3b8;
       text-align: center;
+      color: #94a3b8;
       font-size: 14px;
+      padding: 16px 0 8px;
     }
 
     @media (max-width: 1024px) {
       .hero-grid,
-      .dashboard-grid,
       .features-grid,
-      .insight-grid {
+      .dashboard-grid,
+      .insights,
+      .motivation-layout,
+      .signup-wrap {
         grid-template-columns: 1fr;
       }
 
-      .hero h1 {
+      h1 {
         font-size: 46px;
       }
 
@@ -535,240 +652,375 @@
       }
     }
 
-    @media (max-width: 640px) {
-      .nav-inner {
-        height: auto;
-        padding: 14px 0;
-        align-items: flex-start;
-      }
-
+    @media (max-width: 680px) {
       .nav-links {
         display: none;
       }
 
+      .nav-inner {
+        height: auto;
+        padding: 14px 0;
+      }
+
       .hero-card,
-      .quote-card,
-      .clock-card,
+      .side-card,
+      .feature-card,
+      .dashboard-card,
       .motivation-card,
-      .dashboard {
+      .signup-card {
         padding: 20px;
       }
 
-      .hero h1 {
+      h1 {
         font-size: 38px;
       }
 
-      .section-title {
+      .section-head h2,
+      .dashboard-top h2,
+      .quote-main h2,
+      .signup-side h2,
+      .signup-card h2 {
         font-size: 30px;
       }
 
-      .input-row,
+      .hero-buttons,
       .top-actions,
-      .hero-actions {
+      .input-row {
         flex-direction: column;
       }
 
-      .btn-primary,
-      .btn-secondary,
-      .btn-small,
-      .nav-cta {
+      .btn,
+      .ghost-btn,
+      .small-btn,
+      .nav-action {
         width: 100%;
-      }
-
-      .time {
-        font-size: 34px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="site-shell">
-    <nav class="navbar">
-      <div class="container nav-inner">
-        <div class="brand">
-          <div class="brand-mark">D</div>
-          <div>Discipline Rewards</div>
-        </div>
-
-        <div class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#features">Features</a>
-          <a href="#dashboard">Dashboard</a>
-          <a href="#motivation">Motivation</a>
-        </div>
-
-        <button class="nav-cta" onclick="scrollToDashboard()">Start Tracking</button>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-icon">D</div>
+        <div>Discipline Rewards</div>
       </div>
-    </nav>
 
-    <section class="hero" id="home">
-      <div class="container hero-grid">
-        <div class="glass-card hero-card">
-          <div class="hero-badge">Daily discipline system</div>
-          <h1>Stay disciplined.<br>Earn rewards.</h1>
-          <p class="main-copy">
-            A clean, minimal productivity website built to help you stay focused,
-            record your tasks, set rewards, and keep your motivation high every day.
-          </p>
+      <div class="nav-links">
+        <button class="nav-link active-link" onclick="showPage('homePage', this)">Home</button>
+        <button class="nav-link" onclick="showPage('featuresPage', this)">Features</button>
+        <button class="nav-link" onclick="showPage('dashboardPage', this)">Dashboard</button>
+        <button class="nav-link" onclick="showPage('motivationPage', this)">Motivation</button>
+        <button class="nav-link" onclick="showPage('signupPage', this)">Sign Up</button>
+      </div>
 
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="scrollToDashboard()">Start Now</button>
-            <button class="btn-secondary" onclick="scrollToSection('motivation')">See Motivation</button>
-          </div>
+      <button class="nav-action" onclick="openDashboard()">Start Tracking</button>
+    </div>
+  </nav>
 
-          <div class="hero-stats">
-            <div class="stat-box">
-              <h3 id="taskCountDisplay">0</h3>
-              <p>Tasks added</p>
-            </div>
-            <div class="stat-box">
-              <h3 id="rewardCountDisplay">0</h3>
-              <p>Rewards added</p>
-            </div>
-            <div class="stat-box">
-              <h3 id="completionDisplay">0%</h3>
-              <p>Consistency progress</p>
-            </div>
-          </div>
+  <main>
+    <section class="page active" id="homePage">
+      <div class="container">
+        <div class="ticker glass">
+          <span>Stay focused • Build discipline • Track progress • Earn rewards • Small actions create big results •</span>
         </div>
 
-        <div class="side-stack">
-          <div class="glass-card quote-card">
-            <div class="card-label">Motivation quote</div>
-            <p id="quoteText">Discipline is remembering what you want most.</p>
-            <p id="quoteAuthor">— Daily Focus</p>
-          </div>
-
-          <div class="glass-card clock-card">
-            <div class="card-label">Today</div>
-            <p class="time" id="liveTime">00:00:00</p>
-            <p class="date" id="liveDate">Loading date...</p>
-            <div class="mini-progress">
-              <div class="mini-progress-fill" id="progressFill"></div>
-            </div>
-          </div>
-
-          <div class="glass-card motivation-card" id="motivation">
-            <div class="card-label">Mindset</div>
-            <p>
-              Small actions repeated daily create visible results. Keep showing up,
-              even when the mood is not there.
+        <div class="hero-grid">
+          <div class="glass hero-card">
+            <div class="badge">Daily discipline system</div>
+            <h1>Stay disciplined.<br>Earn rewards.</h1>
+            <p class="hero-copy">
+              Turn your daily effort into visible progress. Track what matters, attach rewards to consistency,
+              and keep your motivation alive with a cleaner, smarter experience.
             </p>
-            <button class="btn-secondary" onclick="newQuote()">New Quote</button>
+
+            <div class="hero-buttons">
+              <button class="btn" onclick="openDashboard()">Start Now</button>
+              <button class="ghost-btn" onclick="showPageById('motivationPage')">See Motivation</button>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat">
+                <h3 id="taskCountStat">0</h3>
+                <p>Tasks added</p>
+              </div>
+              <div class="stat">
+                <h3 id="rewardCountStat">0</h3>
+                <p>Rewards added</p>
+              </div>
+              <div class="stat">
+                <h3 id="consistencyStat">0%</h3>
+                <p>Consistency progress</p>
+              </div>
+            </div>
+
+            <div class="hero-visual"></div>
+          </div>
+
+          <div class="side-stack">
+            <div class="glass side-card">
+              <div class="label">Motivation quote</div>
+              <p id="homeQuote">Discipline is remembering what you want most.</p>
+              <p id="homeQuoteAuthor">— Daily Focus</p>
+            </div>
+
+            <div class="glass side-card">
+              <div class="label">Today</div>
+              <div class="time" id="liveTime">00:00:00</div>
+              <div class="date" id="liveDate">Loading date...</div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="dayProgress"></div>
+              </div>
+            </div>
+
+            <div class="glass side-card">
+              <div class="label">Mindset</div>
+              <p class="muted">
+                Discipline is not about feeling ready every day. It is about building a structure
+                that carries you even when motivation is low.
+              </p>
+              <button class="ghost-btn" onclick="newQuote()">New Quote</button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="sections">
+    <section class="page" id="featuresPage">
       <div class="container">
-        <div class="section-title-wrap" id="features">
-          <div class="eyebrow">Why it works</div>
-          <h2 class="section-title">Built to feel simple, clean, and motivating.</h2>
-          <p class="section-sub">
-            More than a basic task page — this is a focused productivity experience.
+        <div class="section-head">
+          <div class="eyebrow">Features</div>
+          <h2>Everything placed where it should be.</h2>
+          <p>
+            This website is built to feel welcoming, minimal, and useful — not crowded, not confusing.
+            Every section serves a purpose.
           </p>
         </div>
 
         <div class="features-grid">
-          <div class="glass-card feature">
-            <h3>Track Tasks</h3>
-            <p>Add your tasks in a clean space that helps you stay organized and intentional.</p>
+          <div class="glass feature-card">
+            <h3>Dedicated Home</h3>
+            <p>A focused first page that introduces the product clearly and beautifully.</p>
           </div>
-          <div class="glass-card feature">
-            <h3>Set Rewards</h3>
-            <p>Create small rewards that make discipline feel satisfying and sustainable.</p>
+          <div class="glass feature-card">
+            <h3>Separate Dashboard</h3>
+            <p>Your task and reward tracking sits on its own page where users can focus properly.</p>
           </div>
-          <div class="glass-card feature">
-            <h3>Stay Motivated</h3>
-            <p>Live quotes, date, time, and progress all keep the energy of the site alive.</p>
+          <div class="glass feature-card">
+            <h3>Motivation Space</h3>
+            <p>A full page of rotating motivation to keep users mentally aligned with their goals.</p>
           </div>
-          <div class="glass-card feature">
+          <div class="glass feature-card">
+            <h3>Live Date & Time</h3>
+            <p>A dynamic section that keeps the website feeling alive and current.</p>
+          </div>
+          <div class="glass feature-card">
+            <h3>Progress Tracking</h3>
+            <p>Consistency percentage updates based on completed tasks, not just added items.</p>
+          </div>
+          <div class="glass feature-card">
+            <h3>Local Saving</h3>
+            <p>Tasks and rewards remain on the browser even after refresh, so progress is not lost.</p>
+          </div>
+          <div class="glass feature-card">
             <h3>Minimal Design</h3>
-            <p>A polished layout you can actually share proudly with friends or early users.</p>
+            <p>Clean spacing, soft glass cards, dark luxury palette, and shareable presentation.</p>
+          </div>
+          <div class="glass feature-card">
+            <h3>Sign Up UI</h3>
+            <p>A sign-up section to complete the product feel and make it look like a real platform.</p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="glass-card dashboard" id="dashboard">
+    <section class="page" id="dashboardPage">
+      <div class="container">
+        <div class="glass dashboard-card">
           <div class="dashboard-top">
             <div>
-              <h3>Task & Reward Dashboard</h3>
-              <p>Use this section to plan what you need to do and what you’ll earn after.</p>
+              <h2>Task & Reward Dashboard</h2>
+              <p>Add your tasks, set your rewards, and watch your discipline build up over time.</p>
             </div>
 
             <div class="top-actions">
-              <button class="btn-secondary" onclick="scrollToSection('home')">Back to Top</button>
-              <button class="btn-small" onclick="clearAll()">Clear All</button>
+              <button class="ghost-btn" onclick="showPageById('homePage')">Back Home</button>
+              <button class="small-btn" onclick="clearAll()">Clear All</button>
             </div>
           </div>
 
           <div class="dashboard-grid">
             <div class="panel">
-              <h4>Tasks</h4>
-              <p class="panel-sub">Add the actions you need to complete.</p>
+              <h3>Tasks</h3>
+              <p>Add what you need to complete today.</p>
 
               <div class="input-row">
                 <input id="taskInput" type="text" placeholder="Enter a task">
-                <button class="btn-small" onclick="addTask()">Add Task</button>
+                <button class="small-btn" onclick="addTask()">Add Task</button>
               </div>
 
               <ul id="taskList"></ul>
-              <div id="taskEmpty" class="empty-state">No tasks added yet.</div>
+              <div class="empty" id="taskEmpty">No tasks added yet.</div>
             </div>
 
             <div class="panel">
-              <h4>Rewards</h4>
-              <p class="panel-sub">Add what you’ll earn after progress.</p>
+              <h3>Rewards</h3>
+              <p>Add what you will earn after progress.</p>
 
               <div class="input-row">
                 <input id="rewardInput" type="text" placeholder="Enter a reward">
-                <button class="btn-small" onclick="addReward()">Add Reward</button>
+                <button class="small-btn" onclick="addReward()">Add Reward</button>
               </div>
 
               <ul id="rewardList"></ul>
-              <div id="rewardEmpty" class="empty-state">No rewards added yet.</div>
+              <div class="empty" id="rewardEmpty">No rewards added yet.</div>
             </div>
           </div>
 
-          <div class="insight-grid">
-            <div class="insight-box">
-              <h5>Daily Reminder</h5>
-              <p>Start before you feel ready. Action creates momentum.</p>
+          <div class="insights">
+            <div class="insight">
+              <h4>Daily Reminder</h4>
+              <p>Finish one meaningful thing before chasing many small distractions.</p>
             </div>
-            <div class="insight-box">
-              <h5>Reward Logic</h5>
-              <p>Use rewards to reinforce progress, not to delay it.</p>
+            <div class="insight">
+              <h4>Reward Rule</h4>
+              <p>Make rewards desirable enough to motivate you, but only after real action.</p>
             </div>
-            <div class="insight-box">
-              <h5>Consistency Rule</h5>
-              <p>Even one small completed task is better than no movement at all.</p>
+            <div class="insight">
+              <h4>Consistency Principle</h4>
+              <p>Checking off small tasks repeatedly creates bigger identity shifts over time.</p>
             </div>
           </div>
-        </div>
-
-        <div class="footer">
-          Discipline Rewards — minimal productivity website built for focus and momentum.
         </div>
       </div>
     </section>
-  </div>
+
+    <section class="page" id="motivationPage">
+      <div class="container">
+        <div class="motivation-layout">
+          <div class="glass motivation-card quote-main">
+            <div class="eyebrow">Motivation</div>
+            <h2>Daily fuel for disciplined people.</h2>
+            <p class="big" id="motivationMainText">Discipline is remembering what you want most.</p>
+            <p class="muted" id="motivationMainAuthor">— Daily Focus</p>
+            <div style="margin-top:18px;">
+              <button class="btn" onclick="newQuote()">Next Quote</button>
+            </div>
+          </div>
+
+          <div class="quote-list" id="quoteList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="signupPage">
+      <div class="container">
+        <div class="signup-wrap">
+          <div class="glass signup-side">
+            <div class="eyebrow">Join the platform</div>
+            <h2>Create your account.</h2>
+            <p>
+              This sign-up section completes the website experience and makes the platform feel
+              ready for real users and future expansion.
+            </p>
+
+            <div class="signup-list">
+              <div>Track your discipline journey</div>
+              <div>Save your tasks and rewards</div>
+              <div>Stay inspired with motivation content</div>
+              <div>Build momentum day by day</div>
+            </div>
+          </div>
+
+          <div class="glass signup-card">
+            <div class="eyebrow">Sign Up</div>
+            <h2>Get started today.</h2>
+            <p>Simple UI for a future full registration flow.</p>
+
+            <div class="form-grid">
+              <input id="nameInput" type="text" placeholder="Full name">
+              <input id="emailInput" type="email" placeholder="Email address">
+              <input id="passwordInput" type="password" placeholder="Create password">
+              <button class="btn" onclick="fakeSignup()">Create Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">Discipline Rewards — a minimal productivity experience built for consistency.</div>
 
   <script>
     const quotes = [
       { text: "Discipline is remembering what you want most.", author: "Daily Focus" },
-      { text: "You do not rise to the level of your goals. You fall to the level of your systems.", author: "James Clear" },
-      { text: "Small consistent actions create extraordinary results.", author: "Momentum Principle" },
-      { text: "Motivation gets you going. Discipline keeps you growing.", author: "Growth Mindset" },
-      { text: "Do not wait for the perfect mood. Start, and let action shape the mood.", author: "Execution Rule" },
-      { text: "A reward feels better when it is earned with intention.", author: "Discipline Rewards" }
+      { text: "Small actions repeated daily create visible results.", author: "Momentum Principle" },
+      { text: "Do not wait for the mood. Let action create the mood.", author: "Execution Rule" },
+      { text: "Motivation starts the journey. Discipline sustains it.", author: "Growth Mindset" },
+      { text: "A reward feels better when it follows real effort.", author: "Discipline Rewards" },
+      { text: "Consistency is often quiet, but its results are loud.", author: "Progress Law" }
     ];
 
     let quoteIndex = 0;
 
+    function showPage(pageId, clickedBtn = null) {
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+
+      document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active-link"));
+      if (clickedBtn) clickedBtn.classList.add("active-link");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showPageById(pageId) {
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+
+      document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active-link"));
+
+      const map = {
+        homePage: 0,
+        featuresPage: 1,
+        dashboardPage: 2,
+        motivationPage: 3,
+        signupPage: 4
+      };
+
+      const navButtons = document.querySelectorAll(".nav-link");
+      if (map[pageId] !== undefined && navButtons[map[pageId]]) {
+        navButtons[map[pageId]].classList.add("active-link");
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openDashboard() {
+      showPageById("dashboardPage");
+    }
+
     function newQuote() {
       quoteIndex = (quoteIndex + 1) % quotes.length;
-      document.getElementById("quoteText").textContent = quotes[quoteIndex].text;
-      document.getElementById("quoteAuthor").textContent = "— " + quotes[quoteIndex].author;
+      const quote = quotes[quoteIndex];
+
+      document.getElementById("homeQuote").textContent = quote.text;
+      document.getElementById("homeQuoteAuthor").textContent = "— " + quote.author;
+      document.getElementById("motivationMainText").textContent = quote.text;
+      document.getElementById("motivationMainAuthor").textContent = "— " + quote.author;
+    }
+
+    function renderQuoteList() {
+      const quoteList = document.getElementById("quoteList");
+      quoteList.innerHTML = "";
+
+      quotes.forEach((quote) => {
+        const div = document.createElement("div");
+        div.className = "glass quote-item";
+        div.innerHTML = `
+          <p>${quote.text}</p>
+          <span>— ${quote.author}</span>
+        `;
+        quoteList.appendChild(div);
+      });
     }
 
     function updateClock() {
@@ -784,89 +1036,148 @@
 
       const secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
       const percent = (secondsToday / 86400) * 100;
-      document.getElementById("progressFill").style.width = percent + "%";
+      document.getElementById("dayProgress").style.width = percent + "%";
     }
 
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    function saveData() {
+      localStorage.setItem("disciplineTasks", JSON.stringify(getTasksData()));
+      localStorage.setItem("disciplineRewards", JSON.stringify(getRewardsData()));
     }
 
-    function scrollToDashboard() {
-      scrollToSection("dashboard");
+    function getTasksData() {
+      const items = [];
+      document.querySelectorAll("#taskList li").forEach(li => {
+        const text = li.querySelector(".task-text").textContent;
+        const completed = li.querySelector('input[type="checkbox"]').checked;
+        items.push({ text, completed });
+      });
+      return items;
     }
 
-    function addTask() {
+    function getRewardsData() {
+      const items = [];
+      document.querySelectorAll("#rewardList li").forEach(li => {
+        const text = li.querySelector(".reward-text").textContent;
+        items.push({ text });
+      });
+      return items;
+    }
+
+    function addTask(text = null, completed = false) {
       const input = document.getElementById("taskInput");
-      const value = input.value.trim();
-
+      const value = text !== null ? text : input.value.trim();
       if (!value) return;
 
       const li = document.createElement("li");
       li.innerHTML = `
-        <span>${value}</span>
-        <button class="delete-btn" onclick="removeItem(this, 'taskList', 'taskEmpty')">Remove</button>
+        <div class="task-left">
+          <input type="checkbox" ${completed ? "checked" : ""} onchange="toggleTask(this)">
+          <span class="task-text ${completed ? "done" : ""}">${value}</span>
+        </div>
+        <button class="remove-btn" onclick="removeItem(this)">Remove</button>
       `;
       document.getElementById("taskList").appendChild(li);
-      input.value = "";
 
-      updateCounts();
-      updateEmptyState("taskList", "taskEmpty");
+      input.value = "";
+      updateEmptyStates();
+      updateStats();
+      saveData();
     }
 
-    function addReward() {
+    function addReward(text = null) {
       const input = document.getElementById("rewardInput");
-      const value = input.value.trim();
-
+      const value = text !== null ? text : input.value.trim();
       if (!value) return;
 
       const li = document.createElement("li");
       li.innerHTML = `
-        <span>${value}</span>
-        <button class="delete-btn" onclick="removeItem(this, 'rewardList', 'rewardEmpty')">Remove</button>
+        <span class="reward-text">${value}</span>
+        <button class="remove-btn" onclick="removeItem(this)">Remove</button>
       `;
       document.getElementById("rewardList").appendChild(li);
+
       input.value = "";
-
-      updateCounts();
-      updateEmptyState("rewardList", "rewardEmpty");
+      updateEmptyStates();
+      updateStats();
+      saveData();
     }
 
-    function removeItem(button, listId, emptyId) {
+    function removeItem(button) {
       button.parentElement.remove();
-      updateCounts();
-      updateEmptyState(listId, emptyId);
+      updateEmptyStates();
+      updateStats();
+      saveData();
     }
 
-    function updateEmptyState(listId, emptyId) {
-      const list = document.getElementById(listId);
-      const empty = document.getElementById(emptyId);
-      empty.style.display = list.children.length === 0 ? "block" : "none";
+    function toggleTask(checkbox) {
+      const text = checkbox.parentElement.querySelector(".task-text");
+      if (checkbox.checked) {
+        text.classList.add("done");
+      } else {
+        text.classList.remove("done");
+      }
+      updateStats();
+      saveData();
     }
 
-    function updateCounts() {
-      const taskCount = document.getElementById("taskList").children.length;
-      const rewardCount = document.getElementById("rewardList").children.length;
-      const total = taskCount + rewardCount;
-      const completion = total === 0 ? 0 : Math.min(100, Math.round((taskCount / Math.max(total, 1)) * 100));
+    function updateEmptyStates() {
+      document.getElementById("taskEmpty").style.display =
+        document.getElementById("taskList").children.length === 0 ? "block" : "none";
 
-      document.getElementById("taskCountDisplay").textContent = taskCount;
-      document.getElementById("rewardCountDisplay").textContent = rewardCount;
-      document.getElementById("completionDisplay").textContent = completion + "%";
+      document.getElementById("rewardEmpty").style.display =
+        document.getElementById("rewardList").children.length === 0 ? "block" : "none";
+    }
+
+    function updateStats() {
+      const taskItems = document.querySelectorAll("#taskList li");
+      const rewardItems = document.querySelectorAll("#rewardList li");
+      const completedTasks = document.querySelectorAll('#taskList input[type="checkbox"]:checked').length;
+
+      const taskCount = taskItems.length;
+      const rewardCount = rewardItems.length;
+      const consistency = taskCount === 0 ? 0 : Math.round((completedTasks / taskCount) * 100);
+
+      document.getElementById("taskCountStat").textContent = taskCount;
+      document.getElementById("rewardCountStat").textContent = rewardCount;
+      document.getElementById("consistencyStat").textContent = consistency + "%";
     }
 
     function clearAll() {
       document.getElementById("taskList").innerHTML = "";
       document.getElementById("rewardList").innerHTML = "";
-      updateCounts();
-      updateEmptyState("taskList", "taskEmpty");
-      updateEmptyState("rewardList", "rewardEmpty");
+      updateEmptyStates();
+      updateStats();
+      saveData();
     }
 
+    function fakeSignup() {
+      const name = document.getElementById("nameInput").value.trim();
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value.trim();
+
+      if (!name || !email || !password) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      alert("Sign up UI completed. A real account system would need a backend/database.");
+    }
+
+    function loadSavedData() {
+      const savedTasks = JSON.parse(localStorage.getItem("disciplineTasks") || "[]");
+      const savedRewards = JSON.parse(localStorage.getItem("disciplineRewards") || "[]");
+
+      savedTasks.forEach(task => addTask(task.text, task.completed));
+      savedRewards.forEach(reward => addReward(reward.text));
+    }
+
+    renderQuoteList();
     updateClock();
     setInterval(updateClock, 1000);
-    updateCounts();
-    updateEmptyState("taskList", "taskEmpty");
-    updateEmptyState("rewardList", "rewardEmpty");
+    setInterval(newQuote, 7000);
+    loadSavedData();
+    updateEmptyStates();
+    updateStats();
   </script>
 </body>
 </html>

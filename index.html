@@ -3,16 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discipline Rewards</title>
+  <title>Discipline OS</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #081120;
+      --bg1: #07111f;
       --bg2: #0f172a;
       --panel: rgba(255,255,255,0.06);
       --panel2: rgba(255,255,255,0.04);
@@ -21,7 +16,6 @@
       --muted: #cbd5e1;
       --green: #22c55e;
       --green-dark: #16a34a;
-      --accent: #38bdf8;
       --danger: #ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
       --radius: 22px;
@@ -36,11 +30,6 @@
         radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 25%),
         radial-gradient(circle at top right, rgba(34,197,94,0.12), transparent 25%),
         linear-gradient(135deg, #07101e 0%, #0b1322 45%, #101a31 100%);
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
     }
 
     .container {
@@ -129,16 +118,27 @@
     .small-btn:hover {
       background: var(--green-dark);
       color: white;
+      transform: translateY(-1px);
+    }
+
+    .btn:active,
+    .small-btn:active,
+    .nav-action:active {
+      transform: scale(0.98);
     }
 
     .page {
       display: none;
       min-height: calc(100vh - 76px);
       padding: 34px 0 54px;
+      animation: fadeIn 0.35s ease;
     }
 
-    .page.active {
-      display: block;
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .glass {
@@ -179,12 +179,8 @@
       gap: 22px;
       align-items: stretch;
     }
-    .hero-card,
-    .side-card,
-    .feature-card,
-    .dashboard-card,
-    .motivation-card,
-    .signup-card {
+
+    .hero-card, .side-card, .feature-card, .dashboard-card, .motivation-card, .signup-card {
       padding: 28px;
     }
 
@@ -193,7 +189,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
       overflow: hidden;
     }
 
@@ -318,12 +313,11 @@
       font-weight: 800;
     }
 
-    #homeQuoteAuthor,
-    .muted {
+    #homeQuoteAuthor, .muted {
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
-    }
+      }
 
     .time {
       font-size: 42px;
@@ -471,9 +465,7 @@
       color: #94a3b8;
     }
 
-    ul {
-      list-style: none;
-    }
+    ul { list-style: none; }
 
     li {
       display: flex;
@@ -594,14 +586,12 @@
       gap: 20px;
     }
 
-    .signup-side h2,
-    .signup-card h2 {
+    .signup-side h2, .signup-card h2 {
       font-size: 36px;
       margin-bottom: 12px;
     }
 
-    .signup-side p,
-    .signup-card p {
+    .signup-side p, .signup-card p {
       color: var(--muted);
       line-height: 1.7;
       margin-bottom: 14px;
@@ -633,47 +623,42 @@
       padding: 16px 0 8px;
     }
 
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #22c55e;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      z-index: 9999;
+      animation: fadeIn 0.25s ease;
+    }
+
     @media (max-width: 1024px) {
-      .hero-grid,
-      .features-grid,
-      .dashboard-grid,
-      .insights,
-      .motivation-layout,
-      .signup-wrap {
+      .hero-grid, .features-grid, .dashboard-grid, .insights, .motivation-layout, .signup-wrap {
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 46px;
-      }
-
-      .hero-stats {
-        grid-template-columns: 1fr;
-      }
+      h1 { font-size: 46px; }
+      .hero-stats { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 680px) {
-      .nav-links {
-        display: none;
-      }
+      .nav-links { display: none; }
 
       .nav-inner {
         height: auto;
         padding: 14px 0;
-      }
+        }
 
-      .hero-card,
-      .side-card,
-      .feature-card,
-      .dashboard-card,
-      .motivation-card,
-      .signup-card {
+      .hero-card, .side-card, .feature-card, .dashboard-card, .motivation-card, .signup-card {
         padding: 20px;
       }
 
-      h1 {
-        font-size: 38px;
-      }
+      h1 { font-size: 38px; }
 
       .section-head h2,
       .dashboard-top h2,
@@ -683,16 +668,11 @@
         font-size: 30px;
       }
 
-      .hero-buttons,
-      .top-actions,
-      .input-row {
+      .hero-buttons, .top-actions, .input-row {
         flex-direction: column;
       }
 
-      .btn,
-      .ghost-btn,
-      .small-btn,
-      .nav-action {
+      .btn, .ghost-btn, .small-btn, .nav-action {
         width: 100%;
       }
     }
@@ -703,7 +683,7 @@
     <div class="container nav-inner">
       <div class="brand">
         <div class="brand-icon">D</div>
-        <div>Discipline Rewards</div>
+        <div>Discipline OS</div>
       </div>
 
       <div class="nav-links">
@@ -730,8 +710,7 @@
             <div class="badge">Daily discipline system</div>
             <h1>Stay disciplined.<br>Earn rewards.</h1>
             <p class="hero-copy">
-              Turn your daily effort into visible progress. Track what matters, attach rewards to consistency,
-              and keep your motivation alive with a cleaner, smarter experience.
+              Turn discipline into a lifestyle. Track your progress, reward your consistency, and build a system that works for you every single day.
             </p>
 
             <div class="hero-buttons">
@@ -776,8 +755,7 @@
             <div class="glass side-card">
               <div class="label">Mindset</div>
               <p class="muted">
-                Discipline is not about feeling ready every day. It is about building a structure
-                that carries you even when motivation is low.
+                Discipline is not about feeling ready every day. It is about building a structure that carries you even when motivation is low.
               </p>
               <button class="ghost-btn" onclick="newQuote()">New Quote</button>
             </div>
@@ -792,8 +770,7 @@
           <div class="eyebrow">Features</div>
           <h2>Everything placed where it should be.</h2>
           <p>
-            This website is built to feel welcoming, minimal, and useful — not crowded, not confusing.
-            Every section serves a purpose.
+            This website is built to feel welcoming, minimal, and useful — not crowded, not confusing. Every section serves a purpose.
           </p>
         </div>
 
@@ -920,8 +897,7 @@
             <div class="eyebrow">Join the platform</div>
             <h2>Create your account.</h2>
             <p>
-              This sign-up section completes the website experience and makes the platform feel
-              ready for real users and future expansion.
+              This sign-up section completes the website experience and makes the platform feel ready for real users and future expansion.
             </p>
 
             <div class="signup-list">
@@ -949,7 +925,7 @@
     </section>
   </main>
 
-  <div class="footer">Discipline Rewards — a minimal productivity experience built for consistency.</div>
+  <div class="footer">Discipline OS — a minimal productivity experience built for consistency.</div>
 
   <script>
     const quotes = [
@@ -1000,8 +976,7 @@
 
     function newQuote() {
       quoteIndex = (quoteIndex + 1) % quotes.length;
-      const quote = quotes[quoteIndex];
-
+      const quote = quotes[quotelndex];
       document.getElementById("homeQuote").textContent = quote.text;
       document.getElementById("homeQuoteAuthor").textContent = "— " + quote.author;
       document.getElementById("motivationMainText").textContent = quote.text;
@@ -1111,11 +1086,8 @@
 
     function toggleTask(checkbox) {
       const text = checkbox.parentElement.querySelector(".task-text");
-      if (checkbox.checked) {
-        text.classList.add("done");
-      } else {
-        text.classList.remove("done");
-      }
+      if (checkbox.checked) text.classList.add("done");
+      else text.classList.remove("done");
       updateStats();
       saveData();
     }
@@ -1150,32 +1122,29 @@
       saveData();
     }
 
-    function fakeSignup() {
+    function createAccount() {
       const name = document.getElementById("nameInput").value.trim();
-      const email = document.getElementById("emailInput").value.trim();
-      const password = document.getElementById("passwordInput").value.trim();
 
-      if (!name || !email || !password) {
-        alert("Please fill in all fields.");
+      if (!name) {
+        alert("Please enter your name");
         return;
       }
 
-      alert("Sign up UI completed. A real account system would need a backend/database.");
-    }
+      const message = document.createElement("div");
+      message.className = "toast";
+      message.innerText = Welcome, ${name} 🚀;
+      document.body.appendChild(message);
 
-    function loadSavedData() {
-      const savedTasks = JSON.parse(localStorage.getItem("disciplineTasks") || "[]");
-      const savedRewards = JSON.parse(localStorage.getItem("disciplineRewards") || "[]");
-
-      savedTasks.forEach(task => addTask(task.text, task.completed));
-      savedRewards.forEach(reward => addReward(reward.text));
+      setTimeout(() => {
+        message.remove();
+        showPageById("dashboardPage");
+      }, 2000);
     }
 
     renderQuoteList();
     updateClock();
     setInterval(updateClock, 1000);
     setInterval(newQuote, 7000);
-    loadSavedData();
     updateEmptyStates();
     updateStats();
   </script>

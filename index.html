@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Reward System</title>
+
   <style>
     body {
       margin: 0;
@@ -13,11 +14,11 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      flex-direction: column;
     }
 
-    .container {
+    .container, #tasks {
       text-align: center;
-      max-width: 600px;
     }
 
     h1 {
@@ -39,28 +40,81 @@
       cursor: pointer;
       color: black;
       font-weight: bold;
+      margin: 5px;
     }
 
     button:hover {
       background: #16a34a;
     }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 5px 0;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
+
+  <!-- LANDING PAGE -->
+  <div class="container" id="landing">
     <h1>Stay Disciplined. Earn Rewards.</h1>
     <p>Track your tasks, stay consistent, and unlock rewards for your effort.</p>
-    <a href="#tasks"><button>Start Now</button></a>
+    <button onclick="showTasks()">Start Now</button>
   </div>
-    <div id="tasks" style="margin-top: 80px; text-align: center;">
-   <h2>Tasks</h2>
-   <input placeholder="Enter task" style="padding:10px; margin:5px;">
-   <button>Add Task</button>
 
-   <h2 style="margin-top: 30px;">Rewards</h2>
-  <input placeholder="Enter reward" style="padding:10px; margin:5px;">
-    <button>Add Reward</button>
- </div>
+  <!-- TASK PAGE -->
+  <div id="tasks" style="display:none;">
+    <h2>Tasks</h2>
+    <input id="taskInput" placeholder="Enter task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <h2 style="margin-top:30px;">Rewards</h2>
+    <input id="rewardInput" placeholder="Enter reward">
+    <button onclick="addReward()">Add Reward</button>
+    <ul id="rewardList"></ul>
+  </div>
+
+  <script>
+    function showTasks() {
+      document.getElementById("landing").style.display = "none";
+      document.getElementById("tasks").style.display = "block";
+    }
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      if (input.value === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = input.value;
+      document.getElementById("taskList").appendChild(li);
+
+      input.value = "";
+    }
+
+    function addReward() {
+      const input = document.getElementById("rewardInput");
+      if (input.value === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = input.value;
+      document.getElementById("rewardList").appendChild(li);
+
+      input.value = "";
+    }
+  </script>
+
 </body>
 </html>

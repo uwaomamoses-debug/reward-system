@@ -173,3 +173,24 @@ function loadData() {
 }
 
 loadData();
+function createAccount() {
+  const message = document.createElement("div");
+  message.innerText = "Account created successfully 🎉";
+
+  message.style.position = "fixed";
+  message.style.top = "20px";
+  message.style.right = "20px";
+  message.style.background = "#22c55e";
+  message.style.color = "#000";
+  message.style.padding = "12px 20px";
+  message.style.borderRadius = "8px";
+  message.style.fontWeight = "bold";
+  message.style.boxShadow = "0 10px 30px rgba(0,0,0,0.4)";
+  message.style.zIndex = "999";
+
+  document.body.appendChild(message);
+
+  setTimeout(() => {
+    message.remove();
+  }, 3000);
+}

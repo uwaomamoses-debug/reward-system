@@ -943,7 +943,7 @@
       document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
       document.getElementById(pageId).classList.add("active");
 
-      document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active-link"));
+      document.querySelectorAll(".nav-links button").forEach(btn => btn.classList.remove("active-link"));
       if (clickedBtn) clickedBtn.classList.add("active-link");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -952,7 +952,7 @@
       document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
       document.getElementById(pageId).classList.add("active");
 
-      document.querySelectorAll(".nav-link").forEach(btn => btn.classList.remove("active-link"));
+      document.querySelectorAll(".nav-links button").forEach(btn => btn.classList.remove("active-link"));
 
       const map = {
         homePage: 0,
@@ -962,7 +962,7 @@
         signupPage: 4
       };
 
-      const navButtons = document.querySelectorAll(".nav-link");
+      const navButtons = document.querySelectorAll(".nav-links button");
       if (map[pageId] !== undefined && navButtons[map[pageId]]) {
         navButtons[map[pageId]].classList.add("active-link");
       }
